@@ -39,6 +39,33 @@ public class LonelyTwitterActivity extends Activity {
 			public void onClick(View v) {
 				setResult(RESULT_OK);
 				String text = bodyText.getText().toString();
+
+				NormalTweet newTweet = new NormalTweet(text);
+				NormalTweet newTweet2 = new NormalTweet(text, new Date());
+
+				ImportantTweet imptweet = new ImportantTweet("This is an important tweet");
+				NormalTweet normtweet = new NormalTweet("This is a normal tweet");
+
+				ArrayList<Tweet> alltweets = new ArrayList<Tweet>();
+				alltweets.add(newTweet);
+				alltweets.add(newTweet2);
+				alltweets.add(imptweet);
+				alltweets.add(normtweet);
+
+				normtweet.getMessage();
+				imptweet.getMessage();
+
+
+				try {
+
+					newTweet.setMessage("Message too long");
+
+				}
+				catch(Exception e){
+					//Show a error message
+					e.printStackTrace();
+
+				}
 				saveInFile(text, new Date(System.currentTimeMillis()));
 				finish();
 
