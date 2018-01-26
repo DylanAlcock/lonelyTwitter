@@ -18,11 +18,15 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 
+
 public class LonelyTwitterActivity extends Activity {
 
 	private static final String FILENAME = "file.sav";
 	private EditText bodyText;
 	private ListView oldTweetsList;
+
+	private ArrayList<Tweet> tweetList;
+	private ArrayAdapter<Tweet> adapter;
 	
 	/** Called when the activity is first created. */
 	@Override
@@ -32,6 +36,7 @@ public class LonelyTwitterActivity extends Activity {
 
 		bodyText = (EditText) findViewById(R.id.body);
 		Button saveButton = (Button) findViewById(R.id.save);
+        Button clearButton = (Button) findViewById(R.id.clear);
 		oldTweetsList = (ListView) findViewById(R.id.oldTweetsList);
 
 		saveButton.setOnClickListener(new View.OnClickListener() {
@@ -42,6 +47,7 @@ public class LonelyTwitterActivity extends Activity {
 
 				NormalTweet newTweet = new NormalTweet(text);
 				NormalTweet newTweet2 = new NormalTweet(text, new Date());
+                tweetList.add(newTweet);
 
 				ImportantTweet imptweet = new ImportantTweet("This is an important tweet");
 				NormalTweet normtweet = new NormalTweet("This is a normal tweet");
@@ -57,20 +63,28 @@ public class LonelyTwitterActivity extends Activity {
 
 
 				try {
-
 					newTweet.setMessage("Message too long");
 
 				}
 				catch(Exception e){
 					//Show a error message
 					e.printStackTrace();
-
 				}
-				saveInFile(text, new Date(System.currentTimeMillis()));
-				finish();
 
 			}
 		});
+
+        clearButton.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v) {
+				setResult(RESULT_OK);
+				bodyText.setText("");
+				if (tweetList != null) {
+					tweetList.clear();
+				}
+
+
+			}
+        });
 	}
 
 	@Override
@@ -119,4 +133,5 @@ public class LonelyTwitterActivity extends Activity {
 			e.printStackTrace();
 		}
 	}
+
 }
