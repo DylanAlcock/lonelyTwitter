@@ -1,18 +1,10 @@
 package ca.ualberta.cs.lonelytwitter;
 
 import java.util.Date;
-import io.searchbox.annotations.JestId;
 
-public abstract class Tweet implements Tweetable, Comparable<Tweet> {
+public abstract class Tweet implements Tweetable {
     private String message;
     private Date date;
-
-    @JestId
-    private String id;
-
-
-    public String getId() {return id;}
-    public void setId(String id) {this.id = id;}
 
     public Tweet(String message){
         this.message = message;
@@ -50,12 +42,5 @@ public abstract class Tweet implements Tweetable, Comparable<Tweet> {
 
     public Date getDate() {
         return date;
-    }
-
-    @Override
-    public int compareTo(Tweet tweet) {
-        if (getDate() == null || tweet.getDate() == null)
-            return 0;
-        return getDate().compareTo(tweet.getDate());
     }
 }
